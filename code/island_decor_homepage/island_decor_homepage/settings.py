@@ -83,9 +83,9 @@ WSGI_APPLICATION = 'island_decor_homepage.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['NAME'],
-        'USER': os.environ['USER'],
-        'PASSWORD': os.environ['PASSWORD'],
+        'NAME': os.environ['POSTGRES_DB'],
+        'USER': os.environ['POSTGRES_USER'],
+        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
         'HOST': os.environ['HOST'],
         'PORT': os.environ['PORT'],
     }
@@ -122,7 +122,7 @@ CACHE_MIDDLEWARE_SECONDS = 259200
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': 'memcached:11211',
+        'LOCATION': 'island_decor_homepage_cache:11211',
     }
 }
 

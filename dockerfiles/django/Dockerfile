@@ -3,4 +3,8 @@ ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
 WORKDIR /code
 ADD requirements.txt /code/
+RUN apk add --no-cache \
+    postgresql-dev \
+    gcc \
+    musl-dev
 RUN pip install -r requirements.txt
