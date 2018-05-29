@@ -1,7 +1,10 @@
-cache:
-   image: memcached
-   ports:
-     - "11211:11211"
-   entrypoint:
-    - memcached
-    - -m 64
+version: '3'
+
+services:
+  cache:
+     image: "memcached:${MEMCACHED_VERSION:?err}"
+     ports:
+       - "11211:11211"
+     entrypoint:
+      - memcached
+      - -m 64
