@@ -9,10 +9,15 @@ services:
       - ./environment_variables/island_decor_homepage/web_settings.env
       - ./environment_variables/island_decor_homepage/db_settings.env
     expose:
-      - "8000"
+      - "80"
     links:
       - island_decor_homepage_cache
       - island_decor_homepage_database
+    command: sh -c "cd island_decor_homepage \
+              && python3 manage.py makemigrations \
+              && python3 manage.py migrate \
+              && gunicorn island_decor_homepage.wsgi:application \
+              --bind 0.0.0.0:80 --workers 3"
   island_decor_homepage_database:
     image: postgres:${POSTGRES_VERSION:?err}
     env_file:
@@ -27,7 +32,7 @@ services:
   island_decor_nginx:
     image: nginx:${NGINX_VERSION:?err}
     ports:
-      - "8000:8000"
+      - "80:80"
     volumes:
       - ./code:/code
       - ./nginx:/etc/nginx/conf.d
