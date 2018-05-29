@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '48t8%*c4u2pbi)_i6_pq^p+m039zq)6k(+!4%(y+vk#_1v)oag'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ['DEBUG'] == 'True'
 
-ALLOWED_HOSTS = ['174.138.125.215', 'islanddecorandmore.com']
+ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(',')
 
 
 # Application definition
@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
-ROOT_URLCONF = 'island_decor_django.urls'
+ROOT_URLCONF = 'island_decor_homepage.urls'
 
 TEMPLATES = [
     {
@@ -74,7 +74,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'island_decor_django.wsgi.application'
+WSGI_APPLICATION = 'island_decor_homepage.wsgi.application'
 
 
 # Database
@@ -83,11 +83,11 @@ WSGI_APPLICATION = 'island_decor_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'island_decor',
-        'USER': 'dev',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.environ['NAME'],
+        'USER': os.environ['USER'],
+        'PASSWORD': os.environ['PASSWORD'],
+        'HOST': os.environ['HOST'],
+        'PORT': os.environ['PORT'],
     }
 }
 
@@ -122,7 +122,7 @@ CACHE_MIDDLEWARE_SECONDS = 259200
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
+        'LOCATION': 'memcached:11211',
     }
 }
 
