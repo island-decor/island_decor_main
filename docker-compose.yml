@@ -13,11 +13,11 @@ services:
     links:
       - island_decor_homepage_cache
       - island_decor_homepage_database
-    command: sh -c "cd island_decor_homepage \
+    command: [sh, -c, "cd island_decor_homepage \
               && python3 manage.py makemigrations \
               && python3 manage.py migrate \
               && gunicorn island_decor_homepage.wsgi:application \
-              --bind 0.0.0.0:80 --workers 3"
+              --bind 0.0.0.0:80 --workers 3"]
   island_decor_homepage_database:
     image: postgres:${POSTGRES_VERSION:?err}
     env_file:
