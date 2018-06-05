@@ -20,18 +20,18 @@ services:
               && gunicorn island_decor_homepage.wsgi:application \
               --bind 0.0.0.0:80 --workers 3"]
   island_decor_homepage_database:
-    image: postgres:$${POSTGRES_VERSION:?err}
+    image: postgres:${POSTGRES_VERSION:?err}
     env_file:
       - ./environment_variables/island_decor_homepage/db_settings.env
   island_decor_homepage_cache:
-     image: "memcached:$${MEMCACHED_VERSION:?err}"
+     image: "memcached:${MEMCACHED_VERSION:?err}"
      ports:
        - "11211:11211"
      entrypoint:
       - memcached
       - -m 64
   island_decor_nginx:
-    image: nginx:$${NGINX_VERSION:?err}
+    image: nginx:${NGINX_VERSION:?err}
     ports:
       - "80:80"
     volumes:
