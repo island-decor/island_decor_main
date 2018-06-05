@@ -6,5 +6,6 @@ ADD requirements.txt /code/
 RUN apk add --no-cache \
     postgresql-dev \
     gcc \
-    musl-dev
+    musl-dev \
+    git
 RUN pip install -r requirements.txt
