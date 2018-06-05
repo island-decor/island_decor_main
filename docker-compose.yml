@@ -35,7 +35,6 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./code:/code
       - ./nginx:/etc/nginx/conf.d
     depends_on:
       - island_decor_homepage_django
