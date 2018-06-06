@@ -2,7 +2,7 @@ version: '3'
 
 services:
   island_decor_homepage_django:
-    build: ./dockerfiles/django/
+    build: ./dockerfiles/island_decor_home_django/
     env_file:
       - ./environment_variables/island_decor_homepage/web_settings.env
       - ./environment_variables/island_decor_homepage/db_settings.env
@@ -11,14 +11,6 @@ services:
     links:
       - island_decor_homepage_cache
       - island_decor_homepage_database
-    command: [sh, -c, "mkdir /island_decor_homepage \
-              && cd /island_decor_homepage \
-              && git clone https://github.com/island-decor/island_decor_homepage.git \
-              && cd island_decor_homepage \
-              && python3 manage.py makemigrations \
-              && python3 manage.py migrate \
-              && gunicorn island_decor_homepage.wsgi:application \
-              --bind 0.0.0.0:80 --workers 3"]
   island_decor_homepage_database:
     image: postgres:${POSTGRES_VERSION:?err}
     env_file:
