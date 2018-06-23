@@ -2,6 +2,7 @@ version: '3'
 
 services:
   island_decor_homepage_django:
+    restart: always
     build: ./dockerfiles/island_decor_home_django/
     env_file:
       - ./environment_variables/island_decor_homepage/web_settings.env
@@ -12,10 +13,12 @@ services:
       - island_decor_homepage_cache
       - island_decor_homepage_database
   island_decor_homepage_database:
+    restart: always
     image: postgres:${POSTGRES_VERSION:?err}
     env_file:
       - ./environment_variables/island_decor_homepage/db_settings.env
   island_decor_homepage_cache:
+     restart: always
      image: "memcached:${MEMCACHED_VERSION:?err}"
      ports:
        - "11211:11211"
@@ -23,9 +26,10 @@ services:
       - memcached
       - -m 64
   island_decor_nginx:
+    restart: always
     image: nginx:${NGINX_VERSION:?err}
     ports:
-      - "80:80"
+      - "0.0.0.0:80:80"
     volumes:
       - ./nginx:/etc/nginx/conf.d
     depends_on:
